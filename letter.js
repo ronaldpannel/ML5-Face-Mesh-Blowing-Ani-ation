@@ -1,9 +1,10 @@
 class Letter {
-  constructor(x, y, fontSize) {
+  constructor(x, y, fontSize, color) {
     this.fontSize = fontSize;
     this.pos = createVector(x, y);
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
+    this.prevPos = createVector(0, 0);
     this.sentence = [
       "r",
       "o",
@@ -24,7 +25,11 @@ class Letter {
     ];
     this.letter = random(this.sentence);
     this.angle = 0;
-    this.angleV = 0.1;
+    this.angleV = 0;
+    this.r;
+    this.g;
+    this.b;
+    this.color = color;
   }
   applyForce(force) {
     this.acc.add(force);
@@ -34,6 +39,7 @@ class Letter {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.mult(0);
+    
   }
   draw() {
     push();
@@ -43,6 +49,6 @@ class Letter {
     rotate(this.angle);
     text(this.letter, 0, 0);
     pop();
-    fill(255);
+    fill(this.color);
   }
 }

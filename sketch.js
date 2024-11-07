@@ -1,4 +1,3 @@
-// let letters = [];
 let rings = [];
 let numRing = 5;
 
@@ -27,14 +26,17 @@ function setup() {
     rings[i] = [];
     let r = 30 + i * 15;
     let circumference = 2 * PI * r;
-    let fontSize = 10 + i * 3;
+    let fontSize = 15 + i * 3;
     let num = floor(circumference / fontSize);
 
     for (let j = 0; j < num; j++) {
       let angle = (TWO_PI / num) * j;
       let x = width / 2 + r * Math.cos(angle);
       let y = height / 2 + r * Math.sin(angle);
-      rings[i][j] = new Letter(x, y, fontSize);
+      let hue = 360 / i + 60;
+
+      let color = `hsl(${hue}, 100%, 50%)`;
+      rings[i][j] = new Letter(x, y, fontSize, color);
     }
   }
 }
@@ -110,7 +112,7 @@ function trigger(letter, mouth) {
   let magnitude = map(distance, 0, width, 0.1, 1) * random(0.1, 1);
   force.mult(magnitude);
   letter.applyForce(force);
-  letter.angleV = map(distance, 0, width, 0.01, 0.1) * random(0.5, 2);
+  letter.angleV = map(distance, 0, width, 0.01, 0.1) * random(0.5, 6);
 }
 
 function windowResized() {
