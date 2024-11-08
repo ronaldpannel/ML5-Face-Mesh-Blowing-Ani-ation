@@ -64,7 +64,7 @@ function draw() {
       bottomRightLip.x,
       bottomRightLip.y
     );
-    if (previousLipDistance > 60 && previousLipDistance - lipDistance > 5) {
+    if (previousLipDistance > 70 && previousLipDistance - lipDistance > 5) {
       for (let i = 0; i < rings.length; i++) {
         for (let j = 0; j < rings[i].length; j++) {
           let mouth = createVector(centerLip.x, centerLip.y);
