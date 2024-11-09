@@ -1,5 +1,6 @@
 let rings = [];
 let numRing = 5;
+let canvas;
 
 let previousLipDistance;
 //ml5.js
@@ -7,6 +8,7 @@ let previousLipDistance;
 let video;
 let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipped: true };
+let startBtn;
 
 function preload() {
   // Load the handPose model
@@ -14,11 +16,17 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(640, 480);
+  canvas = createCanvas(640, 480);
   //Create the webcam video and hide it
   video = createCapture(VIDEO, { flipped: true });
   video.size(640, 480);
   video.hide();
+  startBtn = createButton("Restart");
+  canvas.parent("container");
+  startBtn.parent("container");
+  startBtn.position(width/2 - 50, 50);
+  startBtn.class("sBtn");
+
   // Start detecting faces from the webcam video
   faceMesh.detectStart(video, gotFaces);
 
@@ -44,6 +52,8 @@ function setup() {
 function draw() {
   background(0);
   image(video, 0, 0);
+
+  startBtn.mouseClicked(refresh);
 
   if (faces.length > 0 && faces[0].lips) {
     let topLeftLip = createVector(faces[0].lips.x, faces[0].lips.y);
@@ -114,7 +124,10 @@ function trigger(letter, mouth) {
   letter.applyForce(force);
   letter.angleV = map(distance, 0, width, 0.01, 0.1) * random(0.5, 6);
 }
-
+function refresh() {
+  console.log("refresh");
+  location.reload();
+}
 function windowResized() {
   resizeCanvas(400, 400);
 }
